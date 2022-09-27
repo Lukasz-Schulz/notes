@@ -5,6 +5,8 @@ import com.notebook.dataservice.dto.Author;
 import com.notebook.dataservice.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +37,9 @@ public class AuthorService {
 
     public AuthorDAO getById(Long id) {
         return repository.findById(id).orElseThrow();
+    }
+
+    public List<String> getAll() {
+        return repository.findAllAliases().stream().toList();
     }
 }

@@ -35,6 +35,11 @@ public class NoteController {
         LOG.info("Receive get request on /author/get.");
         return authorService.getByAlias(alias);
     }
+    @GetMapping("/author/get")
+    public List<String> getAuthors() {
+        LOG.info("Receive get request on /author/get.");
+        return authorService.getAll();
+    }
 
     @PostMapping("/notes/add")
     public Note postNewNote(@RequestBody Note note) {
