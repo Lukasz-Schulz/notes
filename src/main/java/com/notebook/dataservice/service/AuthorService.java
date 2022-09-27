@@ -24,7 +24,7 @@ public class AuthorService {
             Optional<AuthorDAO> existingAuthor = repository.findByAlias(author.getAlias());
         if(existingAuthor.isEmpty()) {
             return parser.parse(repository.save(parser.parse(author)));
-        } else if (author.equals(existingAuthor)) {
+        } else if (author.getAlias().equals(existingAuthor.get().getAlias())) {
             return parser.parse(existingAuthor.get());
         } else {
             return parser.parse(repository.save(parser.parse(author)));
