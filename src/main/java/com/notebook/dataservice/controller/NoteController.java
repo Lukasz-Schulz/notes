@@ -30,10 +30,10 @@ public class NoteController {
         return service.getAll();
     }
 
-    @GetMapping("/author/get")
-    public Author getAuthor() {
+    @GetMapping("/author/get/{alias}")
+    public Author getAuthor(@PathVariable String alias) {
         LOG.info("Receive get request on /author/get.");
-        return authorService.getByAlias("Aleksander");
+        return authorService.getByAlias(alias);
     }
 
     @PostMapping("/notes/add")
