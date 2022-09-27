@@ -2,11 +2,13 @@ package com.notebook.dataservice.service;
 
 import com.notebook.dataservice.dao.AuthorDAO;
 import com.notebook.dataservice.dto.Author;
+import com.notebook.dataservice.exception.AuthorNotFoundException;
 import com.notebook.dataservice.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,7 +34,11 @@ public class AuthorService {
     }
 
     public Author getByAlias(String alias) {
-        return parser.parse(repository.findByAlias(alias).orElseThrow());
+        try {
+            return parser.parse(repository.findByAlias(alias).orElseThrow());
+        } catch (NoSuchElementException ex) {
+            throw new AuthorNotFoundException(ex.getMessage(), alias);
+        }
     }
 
     public AuthorDAO getById(Long id) {
