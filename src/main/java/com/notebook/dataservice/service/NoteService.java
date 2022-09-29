@@ -32,8 +32,8 @@ public class NoteService {
         Author author = (authorService.getByAlias(note.getAuthor().getAlias()));
         note.getAuthor().setId(author.getId());
         NoteDAO savedNote = noteRepository.save(parser.parse(note));
-        author.getNotes().add(parser.parse(savedNote));
-        authorService.add(author);
+        note.setId(savedNote.getId());
+        authorService.mergeNotes(note, author.getAlias());
         return parser.parse(savedNote);
     }
 
